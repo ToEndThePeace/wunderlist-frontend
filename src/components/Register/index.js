@@ -1,21 +1,21 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import StyledLogin from "./StyledLogin";
+import StyledRegister from "./StyledRegister";
 
 import { auth } from "../../store/actions";
 
-const Login = (props) => {
-  const { formValues, error, redirect, login, inputHandler } = props;
-
+const Register = (props) => {
+  const { formValues, error, redirect, register, inputHandler } = props;
   const submitHandler = (e) => {
     e.preventDefault();
-    login(formValues);
+    const { username, password } = formValues;
+    register({ username, password });
   };
   return (
-    <StyledLogin>
+    <StyledRegister>
       {!!redirect && <Redirect to="/dashboard" />}
-      <h2>Login:</h2>
+      <h2>Register:</h2>
       {!!error && <span className="error">{error}</span>}
       <form onSubmit={submitHandler}>
         <div>
@@ -36,21 +36,30 @@ const Login = (props) => {
             onChange={inputHandler}
           />
         </div>
+        <div>
+          <label htmlFor="passwordConf">Confirm:&nbsp;</label>
+          <input
+            type="password"
+            name="passwordConf"
+            value={formValues.passwordConf}
+            onChange={inputHandler}
+          />
+        </div>
         <input type="submit" value="Submit" />
       </form>
-    </StyledLogin>
+    </StyledRegister>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
-    formValues: state.auth.login,
+    formValues: state.auth.register,
     error: state.auth.error,
     redirect: state.auth.loggedIn,
   };
 };
 
 export default connect(mapStateToProps, {
-  login: auth.loginAttempt,
-  inputHandler: auth.loginInputHandler,
-})(Login);
+  register: auth.registerAttempt,
+  inputHandler: auth.registerInputHandler,
+})(Register);

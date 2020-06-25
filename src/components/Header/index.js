@@ -14,8 +14,8 @@ const Header = (props) => {
         <NavLink exact to="/login">
           Login
         </NavLink>
-        <NavLink exact to="/signup">
-          Signup
+        <NavLink exact to="/register">
+          Register
         </NavLink>
       </nav>
     </StyledHeader>
