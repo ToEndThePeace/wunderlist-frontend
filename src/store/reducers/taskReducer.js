@@ -3,7 +3,7 @@ const { FETCH_TASKS_START, FETCH_TASKS_SUCCESS, FETCH_TASKS_FAILURE } = task;
 const initialState = {
   isFetching: false,
   list: [],
-  error: "",
+  error: "no error",
 };
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
